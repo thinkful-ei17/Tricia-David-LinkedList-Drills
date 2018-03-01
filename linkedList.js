@@ -1,10 +1,11 @@
+
 'use strict';
 
 
 class _Node {
     constructor(value, next) {
         this.value = value,
-        this.next = next;
+            this.next = next;
     }
 } //end _Node class
 
@@ -55,19 +56,18 @@ class LinkedList {
     find(value) {
         console.log('enter find');
         //is the list empty
-
         if (this.head === null)
             return;
 
         let current = this.head;
         //loop to find value
-        while (current.value !== value) {
-            if (current.next === null) {
-                console.log("item not found");
-                return;
-            } else {
-                current = current.next;
-            }
+        while ((current.value !== value) && (current.next !== null)) {
+            console.log(current.value);
+            current = current.next;
+        }
+        if (current.next === null) {
+            console.log('value not found');
+            return;
         }
         return current.value;
     }
@@ -76,7 +76,7 @@ class LinkedList {
         let newNode = new _Node(insertValue, null);
         let current = this.head;
         let previous = this.head;
-        if (this.head === null) 
+        if (this.head === null)
             return;
         if (this.head.value === findValue) {
             newNode.next = this.head;
@@ -91,6 +91,50 @@ class LinkedList {
         previous.next = newNode;
     }
 
+    insertAfter(insertValue, findValue) {
+        let newNode = new _Node(insertValue, null);
+        let current = this.head;
+        let previous = this.head;
+        if (this.head === null) {
+            console.log("list is empty cannot insertAfter");
+            return
+        }
+        if (this.head.value === findValue) {
+            newNode.next = this.head.next;
+            this.head.next = newNode;
+            return
+        }
+        while ((current.value !== findValue) && (current.next !== null)) {
+            previous = current;
+            current = current.next
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+    }
+
+    insertAt(value, position) {
+        let newNode = new _Node(value, null);
+        let current = this.head;
+        let prev = this.head;
+        if (this.head === null) {
+            console.log("list is empty cannot insertAfter");
+            return
+        }
+        if (position === 0) {
+            newNode.next = this.head;
+            this.head = newNode;
+            return;
+        }
+        let i = 0
+        while (i !== position) {
+            prev = current;
+            current = current.next;
+            i++
+        }
+        prev.next = newNode;
+        newNode.next = current
+    }
+
 
 } //end LinkedList class
 
@@ -103,7 +147,6 @@ function main() {
     SSL.insertFirst('Boomer');
     SSL.insertLast('Tauhida');
     SSL.remove('Boomer');
-    SSL.insertBefore('Tricia', 'Apollo');
     console.log(SSL);
     SSL.insertBefore('Tricia', 'David');
     console.log(SSL);
@@ -113,6 +156,8 @@ function main() {
 
     SSL.insertAfter('Sam', 'Apollo')
     console.log(SSL);
+    SSL.insertAt('Jack', 1);
+    console.log(SSL)
 
 
 }
