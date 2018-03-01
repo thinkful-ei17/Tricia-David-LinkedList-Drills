@@ -4,7 +4,7 @@
 class _Node {
     constructor(value, next) {
         this.value = value,
-        this.next = next;
+            this.next = next;
     }
 } //end _Node class
 
@@ -15,16 +15,16 @@ class LinkedList {
         this.head = null
     }
 
-    insertFirst(value) { 
-        let newNode = new _Node(value, null); 
-        newNode.next = this.head; 
-        this.head = newNode; 
+    insertFirst(value) {
+        let newNode = new _Node(value, null);
+        newNode.next = this.head;
+        this.head = newNode;
     }
 
     insertLast(value) {
         let newNode = new _Node(value, null);
         let current = this.head;
-        while(current.next !== null) {
+        while (current.next !== null) {
             current = current.next;
         }
         current.next = newNode;
@@ -34,22 +34,41 @@ class LinkedList {
         if (!this.head) {
             return null;
         }
-        if(this.head.value === value) {
+        if (this.head.value === value) {
             this.head = this.head.next;
             return;
         }
         let currNode = this.head;
         let prevNode = this.head;
-        while((currNode.value !== value) && (currNode !== null)) {
+        while ((currNode.value !== value) && (currNode !== null)) {
             prevNode = currNode;
             currNode = currNode.next;
         }
-        if(currNode === null) {
+        if (currNode === null) {
             console.log('Value not found');
             return;
         }
         prevNode.next = currNode.next;
 
+    }
+
+    find(value) {
+        //is the list empty
+
+        if (this.head === null)
+            return;
+
+        let current = this.head;
+        //loop to find value
+        while (current.value !== value) {
+            if (current.next === null) {
+                console.log("item not found");
+                return
+            } else {
+                current = current.next;
+            }
+        }
+        return current.value;
     }
 
 
@@ -65,6 +84,9 @@ function main() {
     SSL.insertLast('Tauhida');
     SSL.remove('Boomer');
     console.log(SSL);
+    console.log('We found:  ', SSL.find('Apollo'));
+    console.log('We found:  ', SSL.find('David'));
+    console.log('We found:  ', SSL.find('Tricia'));
 
 
 }
