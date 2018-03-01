@@ -111,6 +111,29 @@ class LinkedList {
         current.next = newNode;
     }
 
+    insertAt(value, position) {
+        let newNode = new _Node(value, null);
+        let current = this.head;
+        let prev = this.head;
+        if (this.head === null) {
+            console.log("list is empty cannot insertAfter");
+            return
+        }
+        if (position === 0) {
+            newNode.next = this.head;
+            this.head = newNode;
+            return;
+        }
+        let i = 0
+        while (i !== position) {
+            prev = current;
+            current = current.next;
+            i++
+        }
+        prev.next = newNode;
+        newNode.next = current
+    }
+
 
 } //end LinkedList class
 
@@ -132,6 +155,8 @@ function main() {
 
     SSL.insertAfter('Sam', 'Apollo')
     console.log(SSL);
+    SSL.insertAt('Jack', 1);
+    console.log(SSL)
 
 
 }
