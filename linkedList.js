@@ -4,7 +4,7 @@
 class _Node {
     constructor(value, next) {
         this.value = value,
-        this.next = next;
+            this.next = next;
     }
 } //end _Node class
 
@@ -53,20 +53,20 @@ class LinkedList {
     }
 
     find(value) {
+        console.log('enter find');
         //is the list empty
-
-        if (this.head === null) 
+        if (this.head === null)
             return;
 
         let current = this.head;
         //loop to find value
-        while (current.value !== value) {
-            if (current.next === null) {
-                console.log("item not found");
-                return
-            } else {
-                current = current.next;
-            }
+        while ((current.value !== value) && (current.next !== null)) {
+            console.log(current.value);
+            current = current.next;
+        }
+        if (current.next === null) {
+            console.log('value not found');
+            return;
         }
         return current.value;
     }
@@ -75,11 +75,11 @@ class LinkedList {
         let newNode = new _Node(insertValue, null);
         let current = this.head;
         let previous = this.head;
-        if (this.head === null) 
+        if (this.head === null)
             return;
         if (this.head.value === findValue) {
-            newNode.next = this.head.next;
-            this.head.next = newNode;
+            newNode.next = this.head;
+            this.head = newNode;
             return;
         }
         while ((current.value !== findValue) && (current.next !== null)) {
@@ -88,6 +88,27 @@ class LinkedList {
         }
         newNode.next = current;
         previous.next = newNode;
+    }
+
+    insertAfter(insertValue, findValue) {
+        let newNode = new _Node(insertValue, null);
+        let current = this.head;
+        let previous = this.head;
+        if (this.head === null) {
+            console.log("list is empty cannot insertAfter");
+            return
+        }
+        if (this.head.value === findValue) {
+            newNode.next = this.head.next;
+            this.head.next = newNode;
+            return
+        }
+        while ((current.value !== findValue) && (current.next !== null)) {
+            previous = current;
+            current = current.next
+        }
+        newNode.next = current.next;
+        current.next = newNode;
     }
 
 
@@ -108,6 +129,9 @@ function main() {
     // console.log('We found:  ', SSL.find('Apollo'));
     // console.log('We found:  ', SSL.find('David'));
     // console.log('We found:  ', SSL.find('Tricia'));
+
+    SSL.insertAfter('Sam', 'Apollo')
+    console.log(SSL);
 
 
 }
