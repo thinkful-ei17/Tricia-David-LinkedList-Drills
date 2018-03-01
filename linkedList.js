@@ -151,6 +151,52 @@ function displayLinkedList(linkedList) {
     }
 }
 
+function size(linkedList) {
+    let size = 1;
+    let current = linkedList.head;
+    if (linkedList.head === null) {
+        console.log("list is empty");
+        return;
+    }
+    while (current.next !== null) {
+        current = current.next;
+        size++;
+    }
+    console.log('The total size of the linked list is', size);
+}
+
+function isEmpty(linkedList) {
+    if (linkedList.head === null) {
+        return true;
+    }
+    return false;
+}
+
+function findPrevious(linkedList, value) {
+    let current = linkedList.head;
+    let previous = linkedList.head;
+    if (linkedList.head === null)
+        return;
+    if (linkedList.head.value === value) {
+        console.log("no previous item");
+        return;
+    }
+    while ((current.value !== value) && (current.next !== null)) {
+        previous = current;
+        current = current.next;
+    }
+    return previous.value;
+}
+
+function findLast(linkedList) {
+    let current = linkedList.head;
+    if (linkedList.head === null)
+    return;
+    while (current.next !== null) {
+        current = current.next;
+    }
+    return current.value;
+}
 
 function main() {
     let SSL = new LinkedList();
@@ -173,7 +219,9 @@ function main() {
     console.log(SSL)
 
     displayLinkedList(SSL);
-
+    size(SSL);
+    console.log(findPrevious(SSL, 'David'));
+    console.log(findLast(SSL));
 }
 
 main();
