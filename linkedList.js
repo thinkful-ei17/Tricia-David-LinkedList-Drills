@@ -53,9 +53,10 @@ class LinkedList {
     }
 
     find(value) {
+        console.log('enter find');
         //is the list empty
 
-        if (this.head === null) 
+        if (this.head === null)
             return;
 
         let current = this.head;
@@ -104,9 +105,14 @@ function main() {
     SSL.remove('Boomer');
     SSL.insertBefore('Tricia', 'Apollo');
     console.log(SSL);
+    SSL.insertBefore('Tricia', 'David');
+    console.log(SSL);
     // console.log('We found:  ', SSL.find('Apollo'));
     // console.log('We found:  ', SSL.find('David'));
     // console.log('We found:  ', SSL.find('Tricia'));
+
+    SSL.insertAfter('Sam', 'Apollo')
+    console.log(SSL);
 
 
 }
