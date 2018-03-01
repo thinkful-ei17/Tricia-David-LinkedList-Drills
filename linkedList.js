@@ -1,4 +1,3 @@
-
 'use strict';
 
 
@@ -191,12 +190,43 @@ function findPrevious(linkedList, value) {
 function findLast(linkedList) {
     let current = linkedList.head;
     if (linkedList.head === null)
-    return;
+        return;
     while (current.next !== null) {
         current = current.next;
     }
     return current.value;
 }
+
+
+function reverseList(linkedList) {
+    console.log('enter reverseList')
+
+    let current = linkedList.head;
+    if (linkedList.head === null) {
+        console.log('list is empty cannot reverse')
+        return
+    }
+    while (current !== null) {
+        let newNode = current;
+        while (newNode.next !== null) {
+            newNode = newNode.next;
+            if (current === linkedList.head) {
+                newNode.next = current;
+                current.next = null;
+                current = newNode;
+            } else {
+                newNode.next = current;
+                current = newNode;
+            }
+        }
+        // current.next = current;
+        linkedList.head = newNode
+        current = null;
+    }
+    displayLinkedList(linkedList);
+}
+
+
 
 function main() {
     let SSL = new LinkedList();
@@ -222,6 +252,8 @@ function main() {
     size(SSL);
     console.log(findPrevious(SSL, 'David'));
     console.log(findLast(SSL));
+    reverseList(SSL)
+
 }
 
 main();
