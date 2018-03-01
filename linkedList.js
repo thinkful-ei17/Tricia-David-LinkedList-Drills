@@ -138,6 +138,19 @@ class LinkedList {
 
 } //end LinkedList class
 
+function displayLinkedList(linkedList) {
+    let current = linkedList.head;
+    if (linkedList.head === null) {
+        console.log("list is empty");
+        return;
+    }
+    while (current.next !== null) {
+        console.log("current: ", current.value);
+        console.log("next => ", current.next.value);
+        current = current.next;
+    }
+}
+
 
 function main() {
     let SSL = new LinkedList();
@@ -159,6 +172,7 @@ function main() {
     SSL.insertAt('Jack', 1);
     console.log(SSL)
 
+    displayLinkedList(SSL);
 
 }
 
