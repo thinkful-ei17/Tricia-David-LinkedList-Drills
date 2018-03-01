@@ -60,15 +60,15 @@ class LinkedList {
 
         let current = this.head;
         //loop to find value
-        while ((current.value !== value) && (current.next !== null)) {
-            console.log(current.value);
-            current = current.next;
+        while (current.value !== value) {
+            if(current.next === null) {
+                console.log('value not found');
+                return null;
+            } else {
+                current = current.next;
+            }
         }
-        if (current.next === null) {
-            console.log('value not found');
-            return;
-        }
-        return current.value;
+        return current;
     }
 
     insertBefore(insertValue, findValue) {
@@ -131,7 +131,13 @@ class LinkedList {
             i++
         }
         prev.next = newNode;
-        newNode.next = current
+        newNode.next = current;
+    }
+
+    makeCircular(findValue, toValue) {
+        let currentNode = this.find(findValue);
+        let toNode = this.find(toValue);
+        currentNode.next = toNode;
     }
 
 
@@ -162,6 +168,7 @@ function size(linkedList) {
         size++;
     }
     console.log('The total size of the linked list is', size);
+    return size;
 }
 
 function isEmpty(linkedList) {
@@ -198,33 +205,90 @@ function findLast(linkedList) {
 }
 
 
-function reverseList(linkedList) {
-    console.log('enter reverseList')
+// function reverseList(linkedList) {
+//     console.log('enter reverseList')
 
-    let current = linkedList.head;
-    if (linkedList.head === null) {
-        console.log('list is empty cannot reverse')
-        return
+//     let current = linkedList.head;
+//     if (linkedList.head === null) {
+//         console.log('list is empty cannot reverse')
+//         return
+//     }
+//     while (current !== null) {
+//         let newNode = current;
+//         while (newNode.next !== null) {
+//             newNode = newNode.next;
+//             if (current === linkedList.head) {
+//                 newNode.next = current;
+//                 current.next = null;
+//                 current = newNode;
+//             } else {
+//                 newNode.next = current;
+//                 current = newNode;
+//             }
+//         }
+//         // current.next = current;
+//         linkedList.head = newNode
+//         current = null;
+//     }
+//     displayLinkedList(linkedList);
+// }
+
+function reverseList(list) {
+    let current = list.head;
+    let previous = null;
+    let next = null;
+    
+    if(list.head===null) {
+      console.log('list is empty');
+      return;
     }
-    while (current !== null) {
-        let newNode = current;
-        while (newNode.next !== null) {
-            newNode = newNode.next;
-            if (current === linkedList.head) {
-                newNode.next = current;
-                current.next = null;
-                current = newNode;
-            } else {
-                newNode.next = current;
-                current = newNode;
-            }
-        }
-        // current.next = current;
-        linkedList.head = newNode
-        current = null;
+    
+    while(current !== null) {
+      next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
     }
-    displayLinkedList(linkedList);
+    list.head = previous;
+    return list;
 }
+
+
+function middle(list) {
+    let position = Math.floor(size(list)/2);
+    let current = list.head;
+    let i = 0;
+    while (i !== position) {
+        console.log(position, i);
+        current = current.next;
+        i++;
+    }
+    return current;
+}
+
+
+function isCycle(list) {
+    let pointer1 = list.head;
+    let pointer2 = list.head;
+    if(list.head===null) {
+      console.log('list is empty');
+    }
+    
+    while(pointer1.next !== null) {
+      pointer1 = pointer1.next;
+      if(pointer2.next.next !== null) {
+        pointer2 = pointer2.next.next;
+      } else {
+        return false;
+      }
+      if(pointer1 === pointer2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
 
 
 
@@ -246,13 +310,24 @@ function main() {
     SSL.insertAfter('Sam', 'Apollo')
     console.log(SSL);
     SSL.insertAt('Jack', 1);
-    console.log(SSL)
+    // console.log(SSL)
 
-    displayLinkedList(SSL);
-    size(SSL);
-    console.log(findPrevious(SSL, 'David'));
-    console.log(findLast(SSL));
-    reverseList(SSL)
+    // displayLinkedList(SSL);
+    // size(SSL);
+    // console.log(findPrevious(SSL, 'David'));
+    // console.log(findLast(SSL));
+    // console.log(reverseList(SSL));
+    // console.log(middle(SSL));
+    let CL = new LinkedList();
+    CL.insertFirst('Fourth');
+    CL.insertFirst('Third');
+    CL.insertFirst('Second');
+    CL.insertFirst('First');
+    console.log(CL);
+    CL.makeCircular('Fourth', 'Second');
+    console.log(CL);
+    console.log(isCycle(CL));
+    console.log(isCycle(SSL));
 
 }
 
