@@ -4,7 +4,7 @@
 class _Node {
     constructor(value, next) {
         this.value = value,
-            this.next = next;
+        this.next = next;
     }
 } //end _Node class
 
@@ -12,7 +12,7 @@ class _Node {
 
 class LinkedList {
     constructor() {
-        this.head = null
+        this.head = null;
     }
 
     insertFirst(value) {
@@ -55,7 +55,7 @@ class LinkedList {
     find(value) {
         //is the list empty
 
-        if (this.head === null)
+        if (this.head === null) 
             return;
 
         let current = this.head;
@@ -71,6 +71,25 @@ class LinkedList {
         return current.value;
     }
 
+    insertBefore(insertValue, findValue) {
+        let newNode = new _Node(insertValue, null);
+        let current = this.head;
+        let previous = this.head;
+        if (this.head === null) 
+            return;
+        if (this.head.value === findValue) {
+            newNode.next = this.head.next;
+            this.head.next = newNode;
+            return;
+        }
+        while ((current.value !== findValue) && (current.next !== null)) {
+            previous = current;
+            current = current.next;
+        }
+        newNode.next = current;
+        previous.next = newNode;
+    }
+
 
 } //end LinkedList class
 
@@ -84,9 +103,11 @@ function main() {
     SSL.insertLast('Tauhida');
     SSL.remove('Boomer');
     console.log(SSL);
-    console.log('We found:  ', SSL.find('Apollo'));
-    console.log('We found:  ', SSL.find('David'));
-    console.log('We found:  ', SSL.find('Tricia'));
+    SSL.insertBefore('Tricia', 'David');
+    console.log(SSL);
+    // console.log('We found:  ', SSL.find('Apollo'));
+    // console.log('We found:  ', SSL.find('David'));
+    // console.log('We found:  ', SSL.find('Tricia'));
 
 
 }
